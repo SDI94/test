@@ -1,0 +1,34 @@
+# Ignorer les fichiers de configuration
+config/settings.inc.php
+
+# Ignorer les fichiers générés
+var/cache/*
+var/log/*
+var/sessions/*
+var/tmp/*
+
+# Ignorer les fichiers et dossiers liés à Docker
+docker-compose.override.yml
+db_data/
+prestashop_data/
+
+# Ignorer le répertoire vendor
+vendor/
+
+# Ignorer les fichiers de log
+*.log
+
+# Ignorer les fichiers d'environnement
+.env
+
+# Ignorer les fichiers temporaires de l'IDE
+*.tmp
+*.swp
+*.swo
+
+# Ignorer les fichiers de système
+.DS_Store
+Thumbs.db
+
+# Ignorer les fichiers de translation
+translations/
