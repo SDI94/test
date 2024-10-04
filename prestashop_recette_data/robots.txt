@@ -59,7 +59,7 @@ Disallow: /*controller=search
 Disallow: /*controller=statistics
 Disallow: /*controller=attachment
 Disallow: /*controller=guest-tracking
-# Directories for 172.16.3.30:8082
+# Directories for 172.16.3.32:8085
 Disallow: /app/
 Disallow: /cache/
 Disallow: /classes/

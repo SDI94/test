@@ -3,49 +3,30 @@
 services:
   # Base de données MySQL pour PrestaShop
   db:
-    image: mariadb:latest
-    container_name: mysql_prestashop
+    image: mariadb:${MYSQL_VERSION}
+    container_name: ${MYSQL_CONTAINER_NAME}
     environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: prestashop_db
-      MYSQL_USER: prestashop_user
-      MYSQL_PASSWORD: prestashop_password
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     volumes:
       - db_data:/var/lib/mysql
     networks:
       - prestashop_net
 
-  # Serveur PrestaShop - Environnement de production
-  prestashop_prod:
-    image: prestashop/prestashop:latest
-    container_name: prestashop_prod
-    environment:
-      DB_SERVER: db
-      DB_NAME: prestashop_db
-      DB_USER: prestashop_user
-      DB_PASSWORD: prestashop_password
-      PS_DEV_MODE: 0  # Mode production
-    ports:
-      - "8081:80"
-    volumes:
-      - ./prestashop_prod_data:/var/www/html
-    depends_on:
-      - db
-    networks:
-      - prestashop_net
-
   # Serveur PrestaShop - Environnement de recette
   prestashop_recette:
-    image: prestashop/prestashop:latest
-    container_name: prestashop_recette
+    image: prestashop/prestashop:${PRESTASHOP_VERSION}
+    container_name: ${PRESTASHOP_RECETTE_CONTAINER_NAME}
     environment:
       DB_SERVER: db
-      DB_NAME: prestashop_db
-      DB_USER: prestashop_user
-      DB_PASSWORD: prestashop_password
+      DB_NAME: ${MYSQL_DATABASE}
+      DB_USER: ${MYSQL_USER}
+      DB_PASSWORD: ${MYSQL_PASSWORD}
       PS_DEV_MODE: 1  # Mode développement
     ports:
-      - "8082:80"
+      - "${PRESTASHOP_RECETTE_PORT}:80"
     volumes:
       - ./prestashop_recette_data:/var/www/html
     depends_on:
@@ -56,7 +37,6 @@ services:
 # Réseau et volumes partagés
 volumes:
   db_data:
-  prestashop_prod_data:
   prestashop_recette_data:
 
 networks:
